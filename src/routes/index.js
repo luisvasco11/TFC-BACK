@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = Router();
 
 const User = require('../models/User');
+const Proyecto = require('../models/Proyecto');
+const Justificacion = require('../models/Justificacion');
 
 const jwt = require('jsonwebtoken');
 
@@ -30,6 +32,30 @@ console.log(res)
 
     return res.status(200).json({token});
 });
+
+
+
+
+
+
+router.post('/definicion', async (req, res) => {
+    const { proyecto, definicion } = req.body;
+    const newproyecto = new Proyecto({proyecto, definicion});
+    await newproyecto.save();
+
+    res.status(200)
+});
+
+
+router.post('/justificacion', async (req, res) => {
+    const { proyecto, justificacion } = req.body;
+    const newjustification = new Justificacion({proyecto, justificacion});
+    await newjustification.save();
+
+    res.status(200)
+});
+
+
 
 router.get('/tasks', (req, res) => {
     res.json([
